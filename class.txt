@@ -1,0 +1,73 @@
+@startuml
+set namespaceSeparator ::
+
+class "SubscriptionViewModel" {
+  -SubscriptionPlanRepository _planRepository
+  +SubscriptionPlan? plan
+  -List<SubscriptionPlan>? _plans
+  -int _current
+  -List<String> _textList
+  +List<SubscriptionPlan>? plans
+  +String currentText()
+  +void loadSubscriptionPlans()
+  +void select()
+  +void nextText()
+}
+
+"SubscriptionViewModel" o-- "SubscriptionPlanRepository"
+"SubscriptionViewModel" o-- "SubscriptionPlan"
+"ChangeNotifier" <|-- "SubscriptionViewModel"
+
+class "SubscriptionPlanRepository" {
+  +Future<List<SubscriptionPlan>> fetchSubscriptionPlans()
+}
+
+class "StaticSubscriptionPlanRepository" {
+  +Future<List<SubscriptionPlan>> fetchSubscriptionPlans()
+}
+
+"SubscriptionPlanRepository" <|-- "StaticSubscriptionPlanRepository"
+
+class "SubscriptionPlan" {
+  +String name
+  +double rate
+  +double? oldRate
+  +int periodInMonths
+  +double percentSavings()
+  +double monthlyRate()
+}
+
+class "SubscriptionScreen" {
+  +String title
+  +State<SubscriptionScreen> createState()
+}
+
+"StatefulWidget" <|-- "SubscriptionScreen"
+
+class "_MySubscriptionScreenState" {
+  {static} +String contactUrl
+  {static} +String faqUrl
+  {static} +String disclaimerUrl
+  -Timer _timer
+  +void dispose()
+  +void initState()
+  +Widget build()
+  -void _launchURL()
+}
+
+"State" <|-- "_MySubscriptionScreenState"
+
+class "PlanWidget" {
+  +SubscriptionPlan plan
+  +bool selected
+  +void Function() onTap
+  +Widget build()
+}
+
+"PlanWidget" o-- "SubscriptionPlan"
+"StatelessWidget" <|-- "PlanWidget"
+
+"SubscriptionViewModel" - "SubscriptionScreen"
+"SubscriptionScreen" - "_MySubscriptionScreenState"
+
+@enduml
