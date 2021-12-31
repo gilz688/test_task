@@ -110,13 +110,18 @@ class _MySubscriptionScreenState extends State<SubscriptionScreen> {
                       itemBuilder: (context, index) {
                         final item = list![index];
                         return PlanWidget(
-                            plan: item,
-                            selected: selectedItem == item,
-                            onTap: () {
-                              Provider.of<SubscriptionViewModel>(context,
-                                      listen: false)
-                                  .select(item);
-                            });
+                          selected: selectedItem == item,
+                          onTap: () {
+                            Provider.of<SubscriptionViewModel>(context,
+                                    listen: false)
+                                .select(item);
+                          },
+                          name: item.name,
+                          rate: item.rate,
+                          oldRate: item.oldRate,
+                          percentSavings: item.percentSavings(),
+                          monthlyRate: item.monthlyRate(),
+                        );
                       },
                     )),
                     SizedBox(

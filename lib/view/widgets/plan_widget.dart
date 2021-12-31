@@ -1,17 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:test_task/model/subscription_plan.dart';
 import 'package:test_task/view/config/theme.dart';
 
 class PlanWidget extends StatelessWidget {
-  final SubscriptionPlan plan;
+  final String name;
+  final double rate;
+  final double? oldRate;
+  final double percentSavings;
+  final double monthlyRate;
   final bool selected;
   final VoidCallback onTap;
 
   const PlanWidget(
       {Key? key,
-      required this.plan,
       required this.selected,
-      required this.onTap})
+      required this.onTap,
+      required this.name,
+      required this.rate,
+      this.oldRate,
+      required this.percentSavings,
+      required this.monthlyRate})
       : super(key: key);
 
   @override
@@ -28,7 +35,7 @@ class PlanWidget extends StatelessWidget {
         onTap: () => {onTap()},
         child: Column(
           children: [
-            (plan.oldRate != null)
+            (oldRate != null)
                 ? Container(
                     width: double.infinity,
                     alignment: Alignment.center,
@@ -37,8 +44,7 @@ class PlanWidget extends StatelessWidget {
                         borderRadius: BorderRadius.all(Radius.circular(10.0))),
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
-                      child: Text(
-                          "SAVE ${plan.percentSavings().toStringAsFixed(2)}%",
+                      child: Text("SAVE ${percentSavings.toStringAsFixed(2)}%",
                           style: TextStyle(
                               color: Theme.of(context).bottomAppBarColor)),
                     ),
@@ -50,22 +56,21 @@ class PlanWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Column(children: [
-                      Text(plan.name,
-                          style: Theme.of(context).textTheme.bodyText1),
-                      (plan.oldRate != null)
+                      Text(name, style: Theme.of(context).textTheme.bodyText1),
+                      (oldRate != null)
                           ? const SizedBox(height: 10)
                           : const SizedBox.shrink(),
-                      (plan.oldRate != null)
-                          ? Text("${plan.oldRate}€",
+                      (oldRate != null)
+                          ? Text("$oldRate€",
                               style: const TextStyle(
                                   decoration: TextDecoration.lineThrough))
                           : const SizedBox.shrink(),
                     ]),
                     Column(children: [
-                      Text("${plan.rate.toStringAsFixed(2)}€",
+                      Text("${rate.toStringAsFixed(2)}€",
                           style: Theme.of(context).textTheme.bodyText1),
                       const SizedBox(height: 10),
-                      Text('${(plan.monthlyRate()).toStringAsFixed(2)}€ / mo'),
+                      Text('${(monthlyRate).toStringAsFixed(2)}€ / mo'),
                     ]),
                   ]),
             ),

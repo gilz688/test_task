@@ -58,13 +58,17 @@ class "_MySubscriptionScreenState" {
 "State" <|-- "_MySubscriptionScreenState"
 
 class "PlanWidget" {
-  +SubscriptionPlan plan
+  + String name
+  +double rate;
+  +double? oldRate;
+  +double percentSavings;
+  +double monthlyRate;
   +bool selected
   +void Function() onTap
   +Widget build()
 }
 
-"PlanWidget" o-- "SubscriptionPlan"
+"SubscriptionScreen" o-- "PlanWidget"
 "StatelessWidget" <|-- "PlanWidget"
 
 "SubscriptionViewModel" - "SubscriptionScreen"
