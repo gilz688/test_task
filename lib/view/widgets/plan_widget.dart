@@ -39,7 +39,8 @@ class PlanWidget extends StatelessWidget {
                       padding: const EdgeInsets.all(10.0),
                       child: Text(
                           "SAVE ${plan.percentSavings().toStringAsFixed(2)}%",
-                          style: const TextStyle(color: Colors.white)),
+                          style: TextStyle(
+                              color: Theme.of(context).bottomAppBarColor)),
                     ),
                   )
                 : const SizedBox.shrink(),
@@ -49,7 +50,8 @@ class PlanWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Column(children: [
-                      Text(plan.name),
+                      Text(plan.name,
+                          style: Theme.of(context).textTheme.bodyText1),
                       (plan.oldRate != null)
                           ? const SizedBox(height: 10)
                           : const SizedBox.shrink(),
@@ -60,7 +62,8 @@ class PlanWidget extends StatelessWidget {
                           : const SizedBox.shrink(),
                     ]),
                     Column(children: [
-                      Text("${plan.rate.toStringAsFixed(2)}€"),
+                      Text("${plan.rate.toStringAsFixed(2)}€",
+                          style: Theme.of(context).textTheme.bodyText1),
                       const SizedBox(height: 10),
                       Text('${(plan.monthlyRate()).toStringAsFixed(2)}€ / mo'),
                     ]),

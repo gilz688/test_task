@@ -28,6 +28,8 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Test Task',
         theme: AppThemes.lightTheme,
+        darkTheme: AppThemes.darkTheme,
+        themeMode: ThemeMode.system,
         initialRoute: '/',
         routes: {
           '/': (context) => const SubscriptionScreen(title: "Subscription"),

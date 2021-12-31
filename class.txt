@@ -18,7 +18,7 @@ class "SubscriptionViewModel" {
 "SubscriptionViewModel" o-- "SubscriptionPlan"
 "ChangeNotifier" <|-- "SubscriptionViewModel"
 
-class "SubscriptionPlanRepository" {
+interface "SubscriptionPlanRepository" {
   +Future<List<SubscriptionPlan>> fetchSubscriptionPlans()
 }
 
@@ -33,7 +33,7 @@ class "SubscriptionPlan" {
   +double rate
   +double? oldRate
   +int periodInMonths
-  +double percentSavings()
+  +double percentDSavings()
   +double monthlyRate()
 }
 

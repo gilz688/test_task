@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:test_task/view/widgets/plan_widget.dart';
 import 'package:provider/provider.dart';
@@ -56,9 +58,16 @@ class _MySubscriptionScreenState extends State<SubscriptionScreen> {
         child: Scaffold(
           appBar: AppBar(
             title: Text(widget.title),
-            leading: const IconButton(
-                icon: Icon(Icons.arrow_back, color: Colors.white),
-                onPressed: null),
+            leading: IconButton(
+                icon: Icon(Icons.arrow_back,
+                    color: Theme.of(context).bottomAppBarColor),
+                onPressed: () {
+                  if (Platform.isAndroid) {
+                    SystemNavigator.pop();
+                  } else if (Platform.isIOS) {
+                    exit(0);
+                  }
+                }),
             shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.only(
               bottomRight: Radius.circular(30),
@@ -83,11 +92,13 @@ class _MySubscriptionScreenState extends State<SubscriptionScreen> {
                       child: Text(
                         currentText,
                         key: ValueKey<String>(currentText),
+                        style: Theme.of(context).textTheme.bodyText1,
                       ),
                     ),
                     const SizedBox(height: 10),
-                    const Text(
+                    Text(
                       'And Free Your Life',
+                      style: Theme.of(context).textTheme.bodyText1,
                     ),
                     const SizedBox(height: 20),
                     Expanded(
