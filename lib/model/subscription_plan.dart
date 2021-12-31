@@ -7,7 +7,7 @@ class SubscriptionPlan {
   SubscriptionPlan(this.name, this.rate, this.periodInMonths, [this.oldRate]);
 
   double percentSavings() {
-    oldRate ??= rate;
+    if (oldRate == null) return 0;
     return (oldRate! - rate) * 100 / oldRate!;
   }
 
