@@ -12,6 +12,6 @@ class SubscriptionPlan {
   }
 
   double monthlyRate() {
-    return rate / 12.0;
+    return rate / periodInMonths;
   }
 }
