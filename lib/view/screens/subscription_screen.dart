@@ -17,9 +17,10 @@ class SubscriptionScreen extends StatefulWidget {
 }
 
 class _MySubscriptionScreenState extends State<SubscriptionScreen> {
-  static const String contactUrl = 'https://www.gilz688.tech/#contact.dev';
-  static const String faqUrl = 'https://www.gilz688.tech/#contact.dev';
-  static const String disclaimerUrl = 'https://www.gilz688.tech/#contact.dev';
+  static const String contactUrl = 'https://www.gilz688.tech/';
+  static const String faqUrl = 'https://help.twitter.com/en';
+  static const String disclaimerUrl =
+      'https://help.twitter.com/en/resources/new-user-faq';
 
   late Timer _timer;
 
