@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:test_task/view/widgets/base_container.dart';
 import 'package:test_task/view/widgets/hyperlink.dart';
 import 'package:test_task/view/widgets/plan_widget.dart';
@@ -54,69 +53,64 @@ class _MySubscriptionScreenState extends State<SubscriptionScreen> {
 
     return BaseContainer(
       title: tr('subscription_screen_title'),
-      child: Stack(children: [
-        // Background Image
-        SvgPicture.asset(
-          'assets/background/subscription_bg.svg',
-          alignment: Alignment.bottomCenter,
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-        ),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const SizedBox(height: 20),
-            AnimatedSwitcher(
-              duration: const Duration(milliseconds: 500),
-              child: Text(
-                currentText,
-                key: ValueKey<String>(currentText),
-                style: Theme.of(context).textTheme.bodyText1,
-              ),
-            ),
-            const SizedBox(height: 10),
-            Text(
-              tr('text4'),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const SizedBox(height: 20),
+          AnimatedSwitcher(
+            duration: const Duration(milliseconds: 500),
+            child: Text(
+              currentText,
+              key: ValueKey<String>(currentText),
               style: Theme.of(context).textTheme.bodyText1,
             ),
-            const SizedBox(height: 20),
+          ),
+          const SizedBox(height: 10),
+          Text(
+            tr('text4'),
+            style: Theme.of(context).textTheme.bodyText1,
+          ),
+          const SizedBox(height: 20),
 
-            // List of Available Subscription Plans
-            Expanded(
-                child: ListView.builder(
-              // Let the ListView know how many items it needs to build.
-              itemCount: list.length,
-              // Provide a builder function. This is where the magic happens.
-              // Convert each item into a widget based on the type of item it is.
-              itemBuilder: (context, index) {
-                final item = list![index];
-                return PlanWidget(
-                  selected: selectedItem == item,
-                  onTap: () {
-                    Provider.of<SubscriptionViewModel>(context, listen: false)
-                        .select(item);
-                  },
-                  name: item.name,
-                  rate: item.rate,
-                  oldRate: item.oldRate,
-                  percentSavings: item.percentSavings(),
-                  monthlyRate: item.monthlyRate(),
-                );
-              },
-            )),
+          // List of Available Subscription Plans
+          Expanded(
+              child: ListView.builder(
+            // Let the ListView know how many items it needs to build.
+            itemCount: list.length,
+            // Provide a builder function. This is where the magic happens.
+            // Convert each item into a widget based on the type of item it is.
+            itemBuilder: (context, index) {
+              final item = list![index];
+              return PlanWidget(
+                selected: selectedItem == item,
+                onTap: () {
+                  Provider.of<SubscriptionViewModel>(context, listen: false)
+                      .select(item);
+                },
+                name: item.name,
+                rate: item.rate,
+                oldRate: item.oldRate,
+                percentSavings: item.percentSavings(),
+                monthlyRate: item.monthlyRate(),
+              );
+            },
+          )),
 
-            // Subscribe Button
-            ElevatedButton(
-                onPressed: (selectedItem != null) ? () {} : null,
-                child: Text((selectedItem != null)
-                    ? tr('subscribe_btn_label',
-                        args: [tr(selectedItem.name + '_plan')]).toUpperCase()
-                    : tr('subscribe_btn_label', args: ["Plan"]).toUpperCase())),
-            // Links Section
-            const _Footer(),
-          ],
-        )
-      ]),
+          // Subscribe Button
+          ElevatedButton(
+              onPressed: (selectedItem != null)
+                  ? () {
+                      context.setLocale(const Locale('de'));
+                    }
+                  : null,
+              child: Text((selectedItem != null)
+                  ? tr('subscribe_btn_label',
+                      args: [tr(selectedItem.name + '_plan')]).toUpperCase()
+                  : tr('subscribe_btn_label', args: ["Plan"]).toUpperCase())),
+          // Links Section
+          const _Footer(),
+        ],
+      ),
     );
   }
 }

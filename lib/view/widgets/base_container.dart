@@ -32,7 +32,13 @@ class BaseContainer extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(15.0),
-        child: Center(child: child),
+        child: Container(
+            decoration: const BoxDecoration(
+                image: DecorationImage(
+                    alignment: Alignment.bottomCenter,
+                    image: AssetImage("assets/background/subscription_bg.png"),
+                    fit: BoxFit.fitWidth)),
+            child: child),
       ),
     );
   }
