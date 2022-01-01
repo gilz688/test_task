@@ -17,6 +17,11 @@ class SubscriptionScreen extends StatefulWidget {
 }
 
 class _MySubscriptionScreenState extends State<SubscriptionScreen> {
+  static const String contactUrl = 'https://www.gilz688.tech/';
+  static const String faqUrl =
+      'https://help.twitter.com/en/resources/new-user-faq';
+  static const String disclaimerUrl = 'https://twitter.com/en/tos';
+
   late Timer _timer;
 
   @override
@@ -108,30 +113,16 @@ class _MySubscriptionScreenState extends State<SubscriptionScreen> {
                       args: [tr(selectedItem.name + '_plan')]).toUpperCase()
                   : tr('subscribe_btn_label', args: ["Plan"]).toUpperCase())),
           // Links Section
-          const _Footer(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Hyperlink(url: contactUrl, label: tr('contact_btn_label')),
+              Hyperlink(url: faqUrl, label: tr('faq_btn_label')),
+              Hyperlink(url: disclaimerUrl, label: tr('disclaimer_btn_label')),
+            ],
+          )
         ],
       ),
-    );
-  }
-}
-
-class _Footer extends StatelessWidget {
-  static const String contactUrl = 'https://www.gilz688.tech/';
-  static const String faqUrl =
-      'https://help.twitter.com/en/resources/new-user-faq';
-  static const String disclaimerUrl = 'https://twitter.com/en/tos';
-
-  const _Footer({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Hyperlink(url: contactUrl, label: tr('contact_btn_label')),
-        Hyperlink(url: faqUrl, label: tr('faq_btn_label')),
-        Hyperlink(url: disclaimerUrl, label: tr('disclaimer_btn_label')),
-      ],
     );
   }
 }
