@@ -1,16 +1,36 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_displaymode/flutter_displaymode.dart';
 import 'package:provider/provider.dart';
 import 'package:test_task/view/config/theme.dart';
 import 'package:test_task/view/screens/subscription_screen.dart';
 import 'package:test_task/view_model/subscription_view_model.dart';
+import 'package:easy_localization/easy_localization.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
+
+  if (Platform.isAndroid) {
+    await FlutterDisplayMode.setHighRefreshRate();
+  }
 
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]).then((_) {
-    runApp(const MyApp());
+    runApp(
+      EasyLocalization(
+        path: 'assets/translations',
+        supportedLocales: const [
+          Locale('en'),
+          Locale('de'),
+        ],
+        fallbackLocale: const Locale('en'),
+        useFallbackTranslations: true,
+        child: const MyApp(),
+      ),
+    );
   });
 }
 
@@ -26,13 +46,23 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Test Task',
+        title: tr('app_name'),
+
+        //themes
         theme: AppThemes.lightTheme,
         darkTheme: AppThemes.darkTheme,
-        themeMode: ThemeMode.system,
+        themeMode: ThemeMode.light,
+
+        // localization settings
+        localizationsDelegates: context.localizationDelegates,
+        supportedLocales: context.supportedLocales,
+        locale: context.locale,
+
+        // routes
         initialRoute: '/',
         routes: {
-          '/': (context) => const SubscriptionScreen(title: "Subscription"),
+          '/': (context) =>
+              SubscriptionScreen(title: tr('subscription_screen_title')),
         },
       ),
     );
