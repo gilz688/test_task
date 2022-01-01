@@ -23,6 +23,7 @@ class _MySubscriptionScreenState extends State<SubscriptionScreen> {
   static const String disclaimerUrl = 'https://twitter.com/en/tos';
 
   late Timer _timer;
+  bool german = false;
 
   @override
   void dispose() {
@@ -105,7 +106,12 @@ class _MySubscriptionScreenState extends State<SubscriptionScreen> {
           ElevatedButton(
               onPressed: (selectedItem != null)
                   ? () {
-                      context.setLocale(const Locale('de'));
+                      german = !german;
+                      if (german) {
+                        context.setLocale(const Locale('de'));
+                      } else {
+                        context.setLocale(const Locale('en'));
+                      }
                     }
                   : null,
               child: Text((selectedItem != null)
