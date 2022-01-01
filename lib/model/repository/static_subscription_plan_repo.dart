@@ -5,8 +5,8 @@ class StaticSubscriptionPlanRepository implements SubscriptionPlanRepository {
   @override
   Future<List<SubscriptionPlan>> fetchSubscriptionPlans() async {
     return [
-      SubscriptionPlan("Yearly", 19.99, 12, 29.99),
-      SubscriptionPlan("Monthly", 4.99, 1),
+      SubscriptionPlan("yearly", 19.99, 12, 29.99),
+      SubscriptionPlan("monthly", 4.99, 1),
     ];
   }
 }

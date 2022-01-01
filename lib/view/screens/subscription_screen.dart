@@ -3,10 +3,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:test_task/view/widgets/base_container.dart';
+import 'package:test_task/view/widgets/hyperlink.dart';
 import 'package:test_task/view/widgets/plan_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:test_task/view_model/subscription_view_model.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class SubscriptionScreen extends StatefulWidget {
   const SubscriptionScreen({Key? key, required this.title}) : super(key: key);
@@ -51,10 +51,6 @@ class _MySubscriptionScreenState extends State<SubscriptionScreen> {
     var selectedItem = provider.plan;
     var list = provider.plans;
     list ??= [];
-    var subscribeLabel = (selectedItem != null)
-        ? "GET ${selectedItem.name.toUpperCase()} PLAN"
-        : "GET PLAN";
-    VoidCallback? subscribeAction = (selectedItem != null) ? () {} : null;
 
     return BaseContainer(
       title: tr('subscription_screen_title'),
@@ -84,6 +80,7 @@ class _MySubscriptionScreenState extends State<SubscriptionScreen> {
               style: Theme.of(context).textTheme.bodyText1,
             ),
             const SizedBox(height: 20),
+
             // List of Available Subscription Plans
             Expanded(
                 child: ListView.builder(
@@ -107,21 +104,14 @@ class _MySubscriptionScreenState extends State<SubscriptionScreen> {
                 );
               },
             )),
+
             // Subscribe Button
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                  onPressed: subscribeAction,
-                  child: Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: Text(subscribeLabel),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15.0),
-                    ),
-                  )),
-            ),
+            ElevatedButton(
+                onPressed: (selectedItem != null) ? () {} : null,
+                child: Text((selectedItem != null)
+                    ? tr('subscribe_btn_label',
+                        args: [tr(selectedItem.name + '_plan')]).toUpperCase()
+                    : tr('subscribe_btn_label', args: ["Plan"]).toUpperCase())),
             // Links Section
             const _Footer(),
           ],
@@ -137,13 +127,6 @@ class _Footer extends StatelessWidget {
       'https://help.twitter.com/en/resources/new-user-faq';
   static const String disclaimerUrl = 'https://twitter.com/en/tos';
 
-  static const TextStyle linkTextStyle =
-      TextStyle(decoration: TextDecoration.underline);
-
-  void _launchURL(url) async {
-    if (!await launch(url)) throw 'Could not launch $url';
-  }
-
   const _Footer({Key? key}) : super(key: key);
 
   @override
@@ -151,21 +134,9 @@ class _Footer extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        TextButton(
-            onPressed: () {
-              _launchURL(contactUrl);
-            },
-            child: Text(tr('contact_btn_label'), style: linkTextStyle)),
-        TextButton(
-            onPressed: () {
-              _launchURL(faqUrl);
-            },
-            child: Text(tr('faq_btn_label'), style: linkTextStyle)),
-        TextButton(
-            onPressed: () {
-              _launchURL(disclaimerUrl);
-            },
-            child: Text(tr('disclaimer_btn_label'), style: linkTextStyle)),
+        Hyperlink(url: contactUrl, label: tr('contact_btn_label')),
+        Hyperlink(url: faqUrl, label: tr('faq_btn_label')),
+        Hyperlink(url: disclaimerUrl, label: tr('disclaimer_btn_label')),
       ],
     );
   }

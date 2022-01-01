@@ -12,5 +12,13 @@
 
   "contact_btn_label": "Contact Us",
   "faq_btn_label": "FAQ",
-  "disclaimer_btn_label": "Disclaimer"
+  "disclaimer_btn_label": "Disclaimer",
+  "subscribe_btn_label": "Get {}",
+  "plan_header": "Save {}%",
+  "monthly_rate": "{} / mo",
+
+  "yearly": "Yearly",
+  "monthly": "Monthly",
+  "yearly_plan": "yearly plan",
+  "monthly_plan": "monthly plan"
 }

@@ -85,6 +85,13 @@ class AppThemes {
         color: textSwatch.shade500,
       ),
     ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+      minimumSize: const Size(double.infinity, 50),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15.0),
+      ),
+    )),
   );
 
   static final darkTheme = lightTheme.copyWith(

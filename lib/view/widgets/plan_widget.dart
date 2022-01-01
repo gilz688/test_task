@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:test_task/view/config/theme.dart';
 
@@ -44,7 +45,10 @@ class PlanWidget extends StatelessWidget {
                         borderRadius: BorderRadius.all(Radius.circular(10.0))),
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
-                      child: Text("SAVE ${percentSavings.toStringAsFixed(2)}%",
+                      child: Text(
+                          tr('plan_header',
+                                  args: [percentSavings.toStringAsFixed(2)])
+                              .toUpperCase(),
                           style: TextStyle(
                               color: Theme.of(context).bottomAppBarColor)),
                     ),
@@ -56,7 +60,8 @@ class PlanWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Column(children: [
-                      Text(name, style: Theme.of(context).textTheme.bodyText1),
+                      Text(tr(name),
+                          style: Theme.of(context).textTheme.bodyText1),
                       (oldRate != null)
                           ? const SizedBox(height: 10)
                           : const SizedBox.shrink(),
@@ -70,7 +75,8 @@ class PlanWidget extends StatelessWidget {
                       Text("${rate.toStringAsFixed(2)}€",
                           style: Theme.of(context).textTheme.bodyText1),
                       const SizedBox(height: 10),
-                      Text('${(monthlyRate).toStringAsFixed(2)}€ / mo'),
+                      Text(tr('monthly_rate',
+                          args: ["${(monthlyRate).toStringAsFixed(2)}€"])),
                     ]),
                   ]),
             ),

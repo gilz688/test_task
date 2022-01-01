@@ -12,5 +12,13 @@
 
   "contact_btn_label": "Kontaktieren Sie uns",
   "faq_btn_label": "FAQ",
-  "disclaimer_btn_label": "Haftungsausschluss"
+  "disclaimer_btn_label": "Haftungsausschluss",
+  "subscribe_btn_label": "{} abrufen",
+  "plan_header": "{}% sparen",
+  "monthly_rate": "{} / Monat",
+
+  "yearly": "jährlich",
+  "monthly": "monatlich",
+  "yearly_plan": "Jahresplan",
+  "monthly_plan": "Monatsplan"
 }
