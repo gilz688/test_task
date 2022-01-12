@@ -1,6 +1,6 @@
 # test_task
 
-A new Flutter project.
+A test Flutter app in MVVM architecture.
 
 ## Getting Started
 
