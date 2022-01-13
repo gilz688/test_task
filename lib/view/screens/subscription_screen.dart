@@ -17,7 +17,7 @@ class SubscriptionScreen extends StatefulWidget {
 }
 
 class _MySubscriptionScreenState extends State<SubscriptionScreen> {
-  static const String contactUrl = 'https://www.gilz688.tech/';
+  static const String contactUrl = 'https://www.google.com/';
   static const String faqUrl =
       'https://help.twitter.com/en/resources/new-user-faq';
   static const String disclaimerUrl = 'https://twitter.com/en/tos';
